@@ -1,56 +1,56 @@
 package com.example.wirebarley.exchangeRate
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.wirebarley.domain.GetExchangeRateUseCase
+import com.example.wirebarley.domain.UpdateRemittanceUseCase
+import com.example.wirebarley.domain.UpdateSelectedToCountryInformationUseCase
+import com.example.wirebarley.model.Country
+import com.example.wirebarley.model.CountryInformation
+import com.example.wirebarley.model.Currency
+import com.example.wirebarley.model.ExchangeRate
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import java.text.DecimalFormat
 import javax.inject.Inject
 
 @HiltViewModel
 class ExchangeRateViewModel @Inject constructor(
-
+    private val getExchangeRateUseCase: GetExchangeRateUseCase,
+    private val updateSelectedToCountryInformationUseCase: UpdateSelectedToCountryInformationUseCase,
+    private val updateRemittanceUseCase: UpdateRemittanceUseCase,
 ) : ViewModel() {
 
-    val countryList = listOf(
-        Country(name = "한국", currency = "KRW"),
-        Country(name = "일본", currency = "JPY"),
-        Country(name = "필리핀", currency = "PHP"),
+    val countryInformationLists = listOf(
+        CountryInformation(name = Country.KOR, currency = Currency.KWR),
+        CountryInformation(name = Country.JPN, currency = Currency.JPY),
+        CountryInformation(name = Country.PHL, currency = Currency.PHP),
     )
 
-    private val _exchangeRateUiState: MutableStateFlow<ExchangeRateUiState> = MutableStateFlow(
-        ExchangeRateUiState(
-            from = Country(name = "미국", currency = "USD"),
-            to = Country(name = "한국", currency = "KRW"),
-            exchangeRate = 1530.04999,
-            requestTime = "2023-01-30 17:45",
-            remittance = 0.0,
-            result = 0.0
-        )
+    val exchangeRateUi: StateFlow<ExchangeRateUiState> = getExchangeRateUseCase().map {
+        ExchangeRateUiState.Success(it)
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = ExchangeRateUiState.Loading
     )
-    val exchangeRateUiState: StateFlow<ExchangeRateUiState>
-        get() = _exchangeRateUiState
 
-    fun updateSelected(country: Country){
-        _exchangeRateUiState.value = exchangeRateUiState.value.copy(
-            to = country
-        )
+    fun updateSelected(countryInformation: CountryInformation){
+        updateSelectedToCountryInformationUseCase(countryInformation)
     }
 
     fun updateRemittance(remittance: String){
-        _exchangeRateUiState.value = exchangeRateUiState.value.copy(
-            remittance = remittance.toDouble()
-        )
+        updateRemittanceUseCase(remittance.toDouble())
     }
 }
 
 fun Double.toCurrencyFromToDecimalFormat(
-    from: String = "USD",
-    to: String
+    from: Currency = Currency.USD,
+    to: Currency
 ): String {
     return if(this == 0.0) "0.00" else {
         val decimalFormat = DecimalFormat("#,###.00")
-        "${decimalFormat.format(this)} $to/$from"
+        "${decimalFormat.format(this)} ${to}/${from}"
     }
 }
 
@@ -58,18 +58,12 @@ fun Double.toSecondDecimalPlaceFormat(): String {
     return if(this == 0.0) "0.00" else DecimalFormat("#,###.00").format(this)
 }
 
-fun String.withCurrencyFormat(currency: String) = "$this ($currency)"
+fun Country.withCurrencyKrFormat(currency: Currency) = "${this.kr} (${currency})"
 
-data class ExchangeRateUiState(
-    val from: Country,
-    val to: Country,
-    val exchangeRate: Double,
-    val requestTime: String,
-    val remittance: Double,
-    val result: Double,
-)
+sealed interface ExchangeRateUiState{
+    data class Success(val exchangeRate: ExchangeRate) : ExchangeRateUiState
 
-data class Country(
-    val name: String,
-    val currency: String,
-)
+    object Error : ExchangeRateUiState
+    object Loading : ExchangeRateUiState
+}
+
