@@ -15,5 +15,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "wirebarley"
 include(":app")
+include(":core:domain")
 include(":core:test")
 include(":feature:exchangeRate")
