@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "wirebarley"
 include(":app")
+include(":core:test")
