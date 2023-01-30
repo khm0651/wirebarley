@@ -1,5 +1,6 @@
 plugins {
     id("wirebarley.android.library")
+    id("wirebarley.android.hilt")
 }
 
 android {
