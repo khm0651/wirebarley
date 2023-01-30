@@ -11,7 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.wirebarley.feature.exchangeRate.R
 import com.example.wirebarley.feature.exchangeRate.databinding.FragmentExchangeRateBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ExchangeRateFragment : Fragment() {
 
     private lateinit var binding: FragmentExchangeRateBinding
@@ -35,16 +37,24 @@ class ExchangeRateFragment : Fragment() {
     private fun setObserve() {
         //data binding 형식으로 바꿀지 유무?..
         lifecycleScope.launchWhenCreated {
-            viewModel.exchangeRateUiState.collect{
-                binding.apply {
-                    from.text = it.from.name.withCurrencyFormat(it.from.currency)
-                    to.text = it.to.name.withCurrencyFormat(it.to.currency)
-                    exchangeRate.text = it.exchangeRate.toCurrencyFromToDecimalFormat(
-                        from = it.from.currency,
-                        to = it.to.currency
-                    )
-                    result.text = getString(R.string.result,(it.exchangeRate * it.remittance).toSecondDecimalPlaceFormat(),it.to.currency)
+            viewModel.exchangeRateUi.collect{
+                when(it){
+                    is ExchangeRateUiState.Success -> {
+                        val data = it.exchangeRate
+                        binding.apply {
+                            from.text = data.from.name.withCurrencyKrFormat(data.from.currency)
+                            to.text = data.to.name.withCurrencyKrFormat(data.to.currency)
+                            exchangeRate.text = data.exchangeRate.toCurrencyFromToDecimalFormat(
+                                from = data.from.currency,
+                                to = data.to.currency
+                            )
+                            result.text = getString(R.string.result,(data.exchangeRate * data.remittance).toSecondDecimalPlaceFormat(),data.to.currency)
+                        }
+                    }
+                    ExchangeRateUiState.Error -> {}
+                    ExchangeRateUiState.Loading -> {}
                 }
+
             }
         }
     }
@@ -64,10 +74,10 @@ class ExchangeRateFragment : Fragment() {
     private fun setPicker() {
         binding.apply {
             picker.minValue = 0
-            picker.maxValue = viewModel.countryList.size - 1
-            picker.displayedValues = viewModel.countryList.map { "${it.name} (${it.currency})" }.toTypedArray()
+            picker.maxValue = viewModel.countryInformationLists.size - 1
+            picker.displayedValues = viewModel.countryInformationLists.map { "${it.name} (${it.currency})" }.toTypedArray()
             picker.setOnValueChangedListener { numberPicker, _, _ ->
-                viewModel.updateSelected(viewModel.countryList[numberPicker.value])
+                viewModel.updateSelected(viewModel.countryInformationLists[numberPicker.value])
             }
         }
     }
