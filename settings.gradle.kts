@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("buildLogic")
     repositories {
         gradlePluginPortal()
         google()
@@ -13,4 +14,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "wirebarley"
-include ':app'
+include(":app")
