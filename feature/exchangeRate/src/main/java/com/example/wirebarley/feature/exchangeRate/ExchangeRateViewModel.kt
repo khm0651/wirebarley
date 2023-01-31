@@ -1,4 +1,4 @@
-package com.example.wirebarley.exchangeRate
+package com.example.wirebarley.feature.exchangeRate
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

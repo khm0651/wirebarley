@@ -1,4 +1,4 @@
-package com.example.wirebarley.exchangeRate
+package com.example.wirebarley.feature.exchangeRate
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,4 +1,4 @@
-package com.example.wirebarley.exchangeRate
+package com.example.wirebarley.feature.exchangeRate
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
