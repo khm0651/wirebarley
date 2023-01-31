@@ -48,6 +48,7 @@ class ExchangeRateFragment : Fragment() {
                                 from = data.from.currency,
                                 to = data.to.currency
                             )
+                            requestTime.text = data.requestTime
                             result.text = getString(R.string.result,(data.exchangeRate * data.remittance).toSecondDecimalPlaceFormat(),data.to.currency)
                         }
                     }
