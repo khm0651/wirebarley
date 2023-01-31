@@ -1,31 +1,28 @@
 package com.example.wirebarley.data.repository
 
+import com.example.wirebarley.core.dataSourceLocal.inMemory.user.InMemoryUserDataSource
 import com.example.wirebarley.model.CountryInformation
 import com.example.wirebarley.model.UserData
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(
-
+    private val userDataSource: InMemoryUserDataSource
 ): UserRepository{
-    private val user: MutableStateFlow<UserData> = MutableStateFlow(UserData.Empty)
 
-    override fun getUserStream(): Flow<UserData> = user
+    override fun getUserStream(): Flow<UserData> = userDataSource.getUserStream()
 
-    override fun updateRemittance(remittance: Double){
-        val exchangeRateStatus = user.value.exchangeRateStatus.copy(
+    override fun updateExchangeRateStatus(
+        selectedFromCountryInformation: CountryInformation?,
+        selectedToCountryInformation: CountryInformation?,
+        remittance: Double?
+    ) {
+        userDataSource.updateExchangeRateStatus(
+            selectedFromCountryInformation = selectedFromCountryInformation,
+            selectedToCountryInformation = selectedToCountryInformation,
             remittance = remittance
         )
-        user.value = user.value.copy(exchangeRateStatus = exchangeRateStatus)
-    }
-
-    override fun updateSelectedToCountryInformation(country: CountryInformation) {
-        val exchangeRateStatus = user.value.exchangeRateStatus.copy(
-            selectedToCountryInformation = country
-        )
-        user.value = user.value.copy(exchangeRateStatus = exchangeRateStatus)
     }
 }

@@ -8,6 +8,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:dataSourceLocal:inMemory"))
     implementation(project(":core:model"))
 
     testImplementation(project(":core:test"))
