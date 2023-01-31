@@ -9,6 +9,6 @@ class ApilayerDataSourceImpl @Inject constructor(
     private val apilayerApi: ApilayerApi
 ): ApilayerDataSource {
     override fun getExchangeRate(): Flow<Double> = flow {
-        emit(apilayerApi.getExchangeRate().quotes.USDKRW)
+        emit(apilayerApi.getExchangeRate().quotes["USDKRW"]!!)
     }
 }

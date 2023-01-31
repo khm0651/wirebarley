@@ -16,7 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-private const val BASE_URL = "https://www.apilayer.net"
+private const val BASE_URL = "https://api.apilayer.com"
 private const val API_KEY = "yFZiAh1tch5CVS9BEL70IqhfHYUJb996"
 
 @Module
@@ -32,12 +32,10 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideApiInterceptor(): Interceptor = Interceptor {
-        val url = it.request().url.newBuilder()
-            .addQueryParameter("access_key", API_KEY)
-            .build()
-
-        val request = it.request().newBuilder()
-            .url(url)
+        val request = it.request()
+            .newBuilder()
+            .addHeader("content-type", "application/json")
+            .addHeader("apikey", API_KEY)
             .build()
 
         it.proceed(request)

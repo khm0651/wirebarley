@@ -40,4 +40,5 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     androidTestImplementation(project(":core:test"))
+    testImplementation(project(":core:test"))
 }

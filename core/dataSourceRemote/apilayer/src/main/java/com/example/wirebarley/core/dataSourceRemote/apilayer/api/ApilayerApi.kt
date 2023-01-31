@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface ApilayerApi {
 
-    @GET("/api/live")
+    @GET("/currency_data/live")
     suspend fun getExchangeRate(): ExchangeRateRes
 }

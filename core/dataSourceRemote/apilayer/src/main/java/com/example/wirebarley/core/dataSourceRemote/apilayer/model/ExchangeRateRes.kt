@@ -4,10 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ExchangeRateRes(
-    val privacy: String,
-    val quotes: Quotes,
+    val quotes: Map<String, Double>,
     val source: String,
     val success: Boolean,
-    val terms: String,
     val timestamp: Int
 )
