@@ -1,7 +1,7 @@
-package com.example.wirebarley.di
+package com.example.wirebarley.core.data.di
 
-import com.example.wirebarley.data.repository.UserRepository
-import com.example.wirebarley.data.repository.UserRepositoryImpl
+import com.example.wirebarley.core.data.repository.UserRepository
+import com.example.wirebarley.core.data.repository.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

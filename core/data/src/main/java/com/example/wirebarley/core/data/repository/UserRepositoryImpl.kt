@@ -1,4 +1,4 @@
-package com.example.wirebarley.data.repository
+package com.example.wirebarley.core.data.repository
 
 import com.example.wirebarley.core.dataSourceLocal.inMemory.user.InMemoryUserDataSource
 import com.example.wirebarley.model.CountryInformation
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Singleton
 class UserRepositoryImpl @Inject constructor(
     private val userDataSource: InMemoryUserDataSource
-): UserRepository{
+): UserRepository {
 
     override fun getUserStream(): Flow<UserData> = userDataSource.getUserStream()
 

@@ -1,6 +1,6 @@
 package com.example.wirebarley.domain
 
-import com.example.wirebarley.data.repository.UserRepository
+import com.example.wirebarley.core.data.repository.UserRepository
 import com.example.wirebarley.model.ExchangeRate
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
