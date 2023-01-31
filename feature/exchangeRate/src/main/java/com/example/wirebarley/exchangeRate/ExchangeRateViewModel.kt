@@ -3,8 +3,7 @@ package com.example.wirebarley.exchangeRate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wirebarley.domain.GetExchangeRateUseCase
-import com.example.wirebarley.domain.UpdateRemittanceUseCase
-import com.example.wirebarley.domain.UpdateSelectedToCountryInformationUseCase
+import com.example.wirebarley.domain.UpdateExchangeRateStatusUseCase
 import com.example.wirebarley.model.Country
 import com.example.wirebarley.model.CountryInformation
 import com.example.wirebarley.model.Currency
@@ -17,8 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ExchangeRateViewModel @Inject constructor(
     private val getExchangeRateUseCase: GetExchangeRateUseCase,
-    private val updateSelectedToCountryInformationUseCase: UpdateSelectedToCountryInformationUseCase,
-    private val updateRemittanceUseCase: UpdateRemittanceUseCase,
+    private val updateExchangeRateStatusUseCase: UpdateExchangeRateStatusUseCase,
 ) : ViewModel() {
 
     val countryInformationLists = listOf(
@@ -36,11 +34,11 @@ class ExchangeRateViewModel @Inject constructor(
     )
 
     fun updateSelected(countryInformation: CountryInformation){
-        updateSelectedToCountryInformationUseCase(countryInformation)
+        updateExchangeRateStatusUseCase(selectedToCountryInformation = countryInformation)
     }
 
     fun updateRemittance(remittance: String){
-        updateRemittanceUseCase(remittance.toDouble())
+        updateExchangeRateStatusUseCase(remittance = remittance.toDouble())
     }
 }
 

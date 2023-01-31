@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     fun getUserStream(): Flow<UserData>
-    fun updateRemittance(remittance: Double)
-    fun updateSelectedToCountryInformation(country: CountryInformation)
+    fun updateExchangeRateStatus(
+        selectedFromCountryInformation: CountryInformation? = null,
+        selectedToCountryInformation: CountryInformation? = null,
+        remittance: Double? = null
+    )
 }
