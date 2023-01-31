@@ -4,12 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wirebarley.core.domain.GetExchangeRateUseCase
 import com.example.wirebarley.core.domain.UpdateExchangeRateStatusUseCase
+import com.example.wirebarley.core.domain.UpdateExchangeRateUseCase
 import com.example.wirebarley.core.model.Country
 import com.example.wirebarley.core.model.CountryInformation
 import com.example.wirebarley.core.model.Currency
 import com.example.wirebarley.core.model.ExchangeRate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -17,7 +19,12 @@ import javax.inject.Inject
 class ExchangeRateViewModel @Inject constructor(
     private val getExchangeRateUseCase: GetExchangeRateUseCase,
     private val updateExchangeRateStatusUseCase: UpdateExchangeRateStatusUseCase,
+    private val updateExchangeRateUseCase: UpdateExchangeRateUseCase,
 ) : ViewModel() {
+
+    init {
+        updateExchangeRate()
+    }
 
     val countryInformationLists = listOf(
         CountryInformation(name = Country.KOR, currency = Currency.KRW),
@@ -39,6 +46,10 @@ class ExchangeRateViewModel @Inject constructor(
 
     fun updateRemittance(remittance: String){
         updateExchangeRateStatusUseCase(remittance = remittance.toDouble())
+    }
+
+    fun updateExchangeRate() = viewModelScope.launch {
+        updateExchangeRateUseCase()
     }
 }
 
