@@ -10,7 +10,7 @@ data class UserData (
 
 data class ExchangeRateStatus(
     val selectedFromCountryInformation: CountryInformation = CountryInformation(name = Country.USA, currency = Currency.USD),
-    val selectedToCountryInformation: CountryInformation = CountryInformation(name = Country.KOR, currency = Currency.KWR),
+    val selectedToCountryInformation: CountryInformation = CountryInformation(name = Country.KOR, currency = Currency.KRW),
     val remittance: Double = 0.0
 ) {
     companion object{

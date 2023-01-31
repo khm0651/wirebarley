@@ -14,7 +14,7 @@ enum class Country(val kr: String){
 
 enum class Currency{
     USD,
-    KWR,
+    KRW,
     JPY,
     PHP
 }

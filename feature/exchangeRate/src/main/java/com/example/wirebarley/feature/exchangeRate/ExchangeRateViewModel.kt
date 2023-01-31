@@ -20,7 +20,7 @@ class ExchangeRateViewModel @Inject constructor(
 ) : ViewModel() {
 
     val countryInformationLists = listOf(
-        CountryInformation(name = Country.KOR, currency = Currency.KWR),
+        CountryInformation(name = Country.KOR, currency = Currency.KRW),
         CountryInformation(name = Country.JPN, currency = Currency.JPY),
         CountryInformation(name = Country.PHL, currency = Currency.PHP),
     )
