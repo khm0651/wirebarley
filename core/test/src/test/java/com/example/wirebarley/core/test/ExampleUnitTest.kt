@@ -1,4 +1,4 @@
-package com.example.wirebarley
+package com.example.wirebarley.core.test
 
 import org.junit.Test
 

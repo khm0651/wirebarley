@@ -1,4 +1,4 @@
-package com.example.wirebarley
+package com.example.wirebarley.core.test
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
