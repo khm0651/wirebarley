@@ -1,5 +1,7 @@
 package com.example.wirebarley.core.data.di
 
+import com.example.wirebarley.core.data.repository.ExchangeRateRepository
+import com.example.wirebarley.core.data.repository.ExchangeRateRepositoryImpl
 import com.example.wirebarley.core.data.repository.UserRepository
 import com.example.wirebarley.core.data.repository.UserRepositoryImpl
 import dagger.Binds
@@ -15,4 +17,9 @@ interface DataModule {
     fun bindsUserRepository(
         userRepository: UserRepositoryImpl
     ): UserRepository
+
+    @Binds
+    fun bindsExchangeRateRepository(
+        exchangeRateRepository: ExchangeRateRepositoryImpl
+    ): ExchangeRateRepository
 }
