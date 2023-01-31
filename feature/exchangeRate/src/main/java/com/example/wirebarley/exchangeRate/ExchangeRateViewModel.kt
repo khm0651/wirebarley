@@ -2,8 +2,8 @@ package com.example.wirebarley.exchangeRate
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.wirebarley.domain.GetExchangeRateUseCase
-import com.example.wirebarley.domain.UpdateExchangeRateStatusUseCase
+import com.example.wirebarley.core.domain.GetExchangeRateUseCase
+import com.example.wirebarley.core.domain.UpdateExchangeRateStatusUseCase
 import com.example.wirebarley.model.Country
 import com.example.wirebarley.model.CountryInformation
 import com.example.wirebarley.model.Currency

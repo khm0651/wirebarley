@@ -1,4 +1,4 @@
-package com.example.wirebarley.domain
+package com.example.wirebarley.core.domain
 
 import org.junit.Test
 

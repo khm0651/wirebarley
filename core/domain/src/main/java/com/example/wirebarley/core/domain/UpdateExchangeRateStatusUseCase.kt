@@ -1,4 +1,4 @@
-package com.example.wirebarley.domain
+package com.example.wirebarley.core.domain
 
 import com.example.wirebarley.core.data.repository.UserRepository
 import com.example.wirebarley.model.CountryInformation
