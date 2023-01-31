@@ -1,7 +1,7 @@
 package com.example.wirebarley.core.dataSourceLocal.inMemory.user
 
-import com.example.wirebarley.model.CountryInformation
-import com.example.wirebarley.model.UserData
+import com.example.wirebarley.core.model.CountryInformation
+import com.example.wirebarley.core.model.UserData
 import kotlinx.coroutines.flow.Flow
 
 interface InMemoryUserDataSource {

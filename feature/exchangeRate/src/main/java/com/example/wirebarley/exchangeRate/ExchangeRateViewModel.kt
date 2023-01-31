@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wirebarley.core.domain.GetExchangeRateUseCase
 import com.example.wirebarley.core.domain.UpdateExchangeRateStatusUseCase
-import com.example.wirebarley.model.Country
-import com.example.wirebarley.model.CountryInformation
-import com.example.wirebarley.model.Currency
-import com.example.wirebarley.model.ExchangeRate
+import com.example.wirebarley.core.model.Country
+import com.example.wirebarley.core.model.CountryInformation
+import com.example.wirebarley.core.model.Currency
+import com.example.wirebarley.core.model.ExchangeRate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import java.text.DecimalFormat

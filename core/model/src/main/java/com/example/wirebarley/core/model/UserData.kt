@@ -1,4 +1,4 @@
-package com.example.wirebarley.model
+package com.example.wirebarley.core.model
 
 data class UserData (
     val exchangeRateStatus: ExchangeRateStatus = ExchangeRateStatus.Empty

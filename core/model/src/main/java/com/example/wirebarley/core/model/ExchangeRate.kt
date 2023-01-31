@@ -1,4 +1,4 @@
-package com.example.wirebarley.model
+package com.example.wirebarley.core.model
 
 data class ExchangeRate(
     val from: CountryInformation,

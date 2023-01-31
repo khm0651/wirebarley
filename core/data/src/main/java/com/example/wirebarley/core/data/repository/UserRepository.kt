@@ -1,7 +1,7 @@
 package com.example.wirebarley.core.data.repository
 
-import com.example.wirebarley.model.CountryInformation
-import com.example.wirebarley.model.UserData
+import com.example.wirebarley.core.model.CountryInformation
+import com.example.wirebarley.core.model.UserData
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {

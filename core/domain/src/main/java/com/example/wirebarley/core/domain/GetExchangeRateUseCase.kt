@@ -1,7 +1,7 @@
 package com.example.wirebarley.core.domain
 
 import com.example.wirebarley.core.data.repository.UserRepository
-import com.example.wirebarley.model.ExchangeRate
+import com.example.wirebarley.core.model.ExchangeRate
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

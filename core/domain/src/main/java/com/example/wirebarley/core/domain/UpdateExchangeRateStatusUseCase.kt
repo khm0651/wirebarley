@@ -1,7 +1,7 @@
 package com.example.wirebarley.core.domain
 
 import com.example.wirebarley.core.data.repository.UserRepository
-import com.example.wirebarley.model.CountryInformation
+import com.example.wirebarley.core.model.CountryInformation
 import javax.inject.Inject
 
 class UpdateExchangeRateStatusUseCase @Inject constructor(
