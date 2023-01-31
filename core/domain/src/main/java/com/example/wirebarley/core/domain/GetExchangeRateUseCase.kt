@@ -3,8 +3,7 @@ package com.example.wirebarley.core.domain
 import com.example.wirebarley.core.data.repository.ExchangeRateRepository
 import com.example.wirebarley.core.data.repository.UserRepository
 import com.example.wirebarley.core.model.ExchangeRate
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class GetExchangeRateUseCase @Inject constructor(
@@ -13,15 +12,20 @@ class GetExchangeRateUseCase @Inject constructor(
 ) {
 
     operator fun invoke():Flow<ExchangeRate> {
-        return combine(exchangeRateRepository.getExchangeRate(), userRepository.getUserStream()){ exchangeRate, user ->
-            ExchangeRate(
-                from = user.exchangeRateStatus.selectedFromCountryInformation,
-                to = user.exchangeRateStatus.selectedToCountryInformation,
-                exchangeRate = exchangeRate,
-                requestTime = "2023-01-30 17:45",
-                remittance = user.exchangeRateStatus.remittance,
-                result = exchangeRate * user.exchangeRateStatus.remittance
-            )
-        }
+        return userRepository.getUserStream().map { userData ->
+            exchangeRateRepository.getExchangeRateStream(
+                from = userData.exchangeRateStatus.selectedFromCountryInformation.currency,
+                to = userData.exchangeRateStatus.selectedToCountryInformation.currency,
+            ).map { exchangeInformation ->
+                ExchangeRate(
+                    from = userData.exchangeRateStatus.selectedFromCountryInformation,
+                    to = userData.exchangeRateStatus.selectedToCountryInformation,
+                    exchangeRate = exchangeInformation.exchangeRate,
+                    requestTime = exchangeInformation.createdAt,
+                    remittance = userData.exchangeRateStatus.remittance,
+                    result = exchangeInformation.exchangeRate * userData.exchangeRateStatus.remittance
+                )
+            }
+        }.flatMapLatest { it }
     }
 }
