@@ -1,31 +1,19 @@
 package com.example.wirebarley.core.domain
 
+import com.example.wirebarley.core.data.repository.ExchangeRateRepository
 import com.example.wirebarley.core.data.repository.UserRepository
 import com.example.wirebarley.core.model.ExchangeRate
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetExchangeRateUseCase @Inject constructor(
     private val userRepository: UserRepository,
+    private val exchangeRateRepository: ExchangeRateRepository,
 ) {
 
     operator fun invoke():Flow<ExchangeRate> {
-        val exchangeRate = flow {
-            emit(1530.049999)
-            delay(2000L)
-            emit(1330.049999)
-            delay(2000L)
-            emit(1130.049999)
-            delay(2000L)
-            emit(1930.049999)
-            delay(2000L)
-            emit(1230.049999)
-        }
-        return combine(exchangeRate, userRepository.getUserStream()){ exchangeRate, user ->
+        return combine(exchangeRateRepository.getExchangeRate(), userRepository.getUserStream()){ exchangeRate, user ->
             ExchangeRate(
                 from = user.exchangeRateStatus.selectedFromCountryInformation,
                 to = user.exchangeRateStatus.selectedToCountryInformation,
