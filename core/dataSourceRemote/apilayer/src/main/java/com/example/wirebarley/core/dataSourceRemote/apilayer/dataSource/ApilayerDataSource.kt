@@ -1,7 +1,7 @@
 package com.example.wirebarley.core.dataSourceRemote.apilayer.dataSource
 
-import kotlinx.coroutines.flow.Flow
+import com.example.wirebarley.core.dataSourceRemote.apilayer.model.ExchangeRateRes
 
 interface ApilayerDataSource {
-    fun getExchangeRate(): Flow<Double>
+    suspend fun getExchangeRate(): ExchangeRateRes
 }

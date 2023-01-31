@@ -7,5 +7,5 @@ data class ExchangeRateRes(
     val quotes: Map<String, Double>,
     val source: String,
     val success: Boolean,
-    val timestamp: Int
+    val timestamp: Long
 )
