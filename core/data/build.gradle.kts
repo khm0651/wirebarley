@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(project(":core:dataSourceLocal:inMemory"))
+    implementation(project(":core:dataSourceLocal:room"))
     implementation(project(":core:dataSourceRemote:apilayer"))
     implementation(project(":core:model"))
 
