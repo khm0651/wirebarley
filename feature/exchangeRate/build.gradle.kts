@@ -24,6 +24,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
+    testImplementation(kotlin("test"))
+    testImplementation(project(":core:data"))
     testImplementation(project(":core:test"))
     androidTestImplementation(project(":core:test"))
 }
