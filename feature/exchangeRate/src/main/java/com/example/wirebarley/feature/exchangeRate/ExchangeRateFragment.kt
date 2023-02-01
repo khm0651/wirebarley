@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.wirebarley.core.common.extensions.toCurrencyFromToDecimalFormat
 import com.example.wirebarley.core.common.extensions.toSecondDecimalPlaceFormat
 import com.example.wirebarley.core.common.extensions.withCurrencyKrFormat
-import com.example.wirebarley.feature.exchangeRate.R
 import com.example.wirebarley.feature.exchangeRate.databinding.FragmentExchangeRateBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +32,7 @@ class ExchangeRateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setPicker()
-        setListner()
+        setListener()
         setObserve()
     }
 
@@ -63,7 +62,7 @@ class ExchangeRateFragment : Fragment() {
         }
     }
 
-    private fun setListner() {
+    private fun setListener() {
         binding.apply {
             editText.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
