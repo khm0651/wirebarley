@@ -7,6 +7,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:model"))
+    implementation(project(":core:data"))
+
     api(libs.junit4)
     api(libs.androidx.test.ext)
     api(libs.androidx.test.espresso.core)
