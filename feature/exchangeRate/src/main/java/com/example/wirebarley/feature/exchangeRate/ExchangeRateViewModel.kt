@@ -2,6 +2,7 @@ package com.example.wirebarley.feature.exchangeRate
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.wirebarley.core.common.result.asResult
 import com.example.wirebarley.core.domain.GetExchangeRateUseCase
 import com.example.wirebarley.core.domain.UpdateExchangeRateStatusUseCase
 import com.example.wirebarley.core.domain.UpdateExchangeRateUseCase
@@ -13,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.wirebarley.core.common.result.Result
 
 @HiltViewModel
 class ExchangeRateViewModel @Inject constructor(
@@ -31,9 +33,16 @@ class ExchangeRateViewModel @Inject constructor(
         CountryInformation(name = Country.PHL, currency = Currency.PHP),
     )
 
-    val exchangeRateUi: StateFlow<ExchangeRateUiState> = getExchangeRateUseCase().map {
-        ExchangeRateUiState.Success(it)
-    }.stateIn(
+    val exchangeRateUi: StateFlow<ExchangeRateUiState> = getExchangeRateUseCase()
+        .asResult()
+        .map {
+            when(it){
+                is Result.Success -> ExchangeRateUiState.Success(it.data)
+                Result.Loading -> ExchangeRateUiState.Loading
+                is Result.Error -> ExchangeRateUiState.Error
+            }
+        }
+        .stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000L),
         initialValue = ExchangeRateUiState.Loading

@@ -55,7 +55,7 @@ class ExchangeRateFragment : Fragment() {
                             result.text = getString(R.string.result,(data.exchangeRate * data.remittance).toSecondDecimalPlaceFormat(),data.to.currency)
                         }
                     }
-                    ExchangeRateUiState.Error -> {}
+                    ExchangeRateUiState.Error -> { Toast.makeText(requireContext(), "API 통신 오류", Toast.LENGTH_SHORT).show() }
                     ExchangeRateUiState.Loading -> {}
                 }
 
@@ -68,7 +68,7 @@ class ExchangeRateFragment : Fragment() {
             editText.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     if(editText.text.toString().toDouble() < 0 || editText.text.toString().toDouble() > 10000){
-                        Toast.makeText(requireContext(), "송금액이 바르지 않습니다", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "송금액이 바르지 않습니다", Toast.LENGTH_SHORT).show()
                     }else{
                         viewModel.updateRemittance(editText.text.toString())
                     }
