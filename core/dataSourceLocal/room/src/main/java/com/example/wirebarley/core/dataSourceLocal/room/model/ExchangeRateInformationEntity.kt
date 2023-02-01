@@ -2,9 +2,9 @@ package com.example.wirebarley.core.dataSourceLocal.room.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import com.example.wirebarley.core.common.extensions.toLocalDateTime
 import com.example.wirebarley.core.model.Currency
 import com.example.wirebarley.core.model.ExchangeRateInformation
-import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity(
@@ -24,9 +24,3 @@ fun ExchangeRateInformationEntity.toDomain() = ExchangeRateInformation(
     exchangeRate = exchangeRate,
     createdAt = createdAt.toLocalDateTime()
 )
-
-
-fun Long.toLocalDateTime(): String{
-    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-    return sdf.format(this)
-}
