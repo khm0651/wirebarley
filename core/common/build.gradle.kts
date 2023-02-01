@@ -8,5 +8,6 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:model"))
     testImplementation(project(":core:test"))
 }

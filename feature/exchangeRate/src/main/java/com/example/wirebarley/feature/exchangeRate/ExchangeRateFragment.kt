@@ -9,6 +9,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.wirebarley.core.common.extensions.toCurrencyFromToDecimalFormat
+import com.example.wirebarley.core.common.extensions.toSecondDecimalPlaceFormat
+import com.example.wirebarley.core.common.extensions.withCurrencyKrFormat
 import com.example.wirebarley.feature.exchangeRate.R
 import com.example.wirebarley.feature.exchangeRate.databinding.FragmentExchangeRateBinding
 import dagger.hilt.android.AndroidEntryPoint
